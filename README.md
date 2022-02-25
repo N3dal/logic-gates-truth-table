@@ -1,0 +1,1 @@
+# Logic gate truth table.
