@@ -55,6 +55,29 @@ def create_component(root: tkinter.Tk, component_name: str, img: tkinter.PhotoIm
     return component
 
 
+def create_vertical_line(root: tkinter.Tk, color: str, size: int):
+
+    vertical_line = tkinter.Frame(root, bg=color, height=size, width=2)
+
+    return vertical_line
+
+
+def create_horizontal_line(root: tkinter.Tk, color: str, size: int):
+
+    horizontal_line = tkinter.Frame(root, bg=color, height=2, width=size)
+
+    return horizontal_line
+
+
+def create_table(root: tkinter.Tk, color: str = "black", size: str = "2x2", gate_name: str = "not"):
+    """"""
+
+    vl, hl = create_vertical_line(
+        root, color, 160), create_horizontal_line(root, color, 200)
+    vl.place(x=90, y=330)
+    hl.place(x=90, y=330)
+
+
 def main_window():
 
     root = tkinter.Tk()
@@ -70,6 +93,8 @@ def main_window():
     and_img = load_image("and")
     and_gate = create_component(root, "and", and_img)
     and_gate.place(x=180, y=180)
+
+    create_table(root)
 
     start_app(root)
 
