@@ -31,8 +31,8 @@ def clear():
 clear()
 
 
-WIN_WIDTH = 500
-WIN_HEIGHT = 600
+WIN_WIDTH = 400
+WIN_HEIGHT = 500
 WIN_BG = "gray75"
 
 
@@ -40,12 +40,16 @@ def start_app(root: tkinter.Tk):
     root.mainloop()
 
 
+def load_image(img_name: str):
+    """"""
+
+    return tkinter.PhotoImage(
+        file=f"./assets/{img_name}.png", name=img_name)
 
 
-def create_component(root: tkinter.Tk, component_name: str, img):
+def create_component(root: tkinter.Tk, component_name: str, img: tkinter.PhotoImage):
     """this function will create the digital componet"""
-    img = tkinter.PhotoImage(
-        file=f"./assets/{component_name}.png", name=component_name)
+
     component = tkinter.Label(root, bd=0, image=img, bg=WIN_BG)
 
     return component
@@ -63,8 +67,9 @@ def main_window():
 
     root.configure(bg=WIN_BG)
 
-    and_gate = create_component(root, "and")
-    and_gate.pack()
+    and_img = load_image("and")
+    and_gate = create_component(root, "and", and_img)
+    and_gate.place(x=180, y=180)
 
     start_app(root)
 
