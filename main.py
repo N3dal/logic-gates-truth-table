@@ -18,6 +18,10 @@ from os import name as os_name
 import tkinter
 
 
+# TODO: highlight the table row on specific input, for example in the  "and" gate if the user turn on the sw1 and turn on the sw2,
+# TODO: then you must highlight the table row that contain [1, 1, 1] that  means the input1=1, and input2=1, and the output=1,
+# TODO: and hightlight that row in truth table for example with light-green color, and keep other columns with their default color.
+
 def clear():
     """wipe the terminal screen."""
     if os_name == "posix":
@@ -69,13 +73,39 @@ def create_horizontal_line(root: tkinter.Tk, color: str, size: int):
     return horizontal_line
 
 
-def create_table(root: tkinter.Tk, color: str = "black", size: str = "2x2", gate_name: str = "not"):
+def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"):
     """"""
 
     vl, hl = create_vertical_line(
         root, color, 160), create_horizontal_line(root, color, 200)
-    vl.place(x=90, y=330)
-    hl.place(x=90, y=330)
+
+    table_sizes = {
+        "not": "2x2",
+        "other_gates": "4x3"
+    }
+
+    width, height = map(lambda a: int(
+        a)+1, table_sizes[gate_name if gate_name == "not" else "other_gates"].split('x'))
+
+    print(width, height)  # DEBUG.
+
+    # create logic gates tables.
+    NOT_GATE = [1, 0, 0, 1]
+    AND_GATE = [0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1]
+    OR_GATE = [0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1]
+    NAND_GATE = [0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0]
+    NOR_GATE = [0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0]
+    XOR_GATE = [0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0]
+
+    # create the table lines.
+
+    # first the horizontal lines.
+    for w in range(width):
+        create_horizontal_line(root, color, 200).place(x=110, y=350+30*w)
+
+    # second create the vertical lines.
+    for h in range(height):
+        create_vertical_line(root, color, 120).place(x=110+66*h, y=350)
 
 
 def main_window():
@@ -94,7 +124,7 @@ def main_window():
     and_gate = create_component(root, "and", and_img)
     and_gate.place(x=180, y=180)
 
-    create_table(root)
+    create_table(root, gate_name="not")
 
     start_app(root)
 
