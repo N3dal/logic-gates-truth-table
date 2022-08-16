@@ -14,7 +14,7 @@
 
 
 from os import system
-from os import name as os_name
+from os import name as OS_NAME
 import tkinter
 
 
@@ -24,12 +24,20 @@ import tkinter
 
 def clear():
     """wipe the terminal screen."""
-    if os_name == "posix":
-        # *nix machines.
+
+    if OS_NAME == "posix":
+        # for *nix machines.
         system("clear")
-    else:
-        # window macines.
+
+    elif OS_NAME == "windows":
         system("cls")
+
+    else:
+        # for all other os in the world.
+        # system("your-command")
+        pass
+
+    return None
 
 
 clear()
@@ -42,6 +50,8 @@ WIN_BG = "gray75"
 
 def start_app(root: tkinter.Tk):
     root.mainloop()
+
+    return None
 
 
 def load_image(img_name: str):
@@ -107,6 +117,8 @@ def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"
     for h in range(height):
         create_vertical_line(root, color, 120).place(x=110+66*h, y=350)
 
+    return None
+
 
 def main_window():
 
@@ -127,6 +139,8 @@ def main_window():
     create_table(root, gate_name="not")
 
     start_app(root)
+
+    return None
 
 
 def main():
