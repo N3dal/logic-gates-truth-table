@@ -196,6 +196,12 @@ def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"
     return None
 
 
+def combobox_select_event(combobox: ttk.Combobox):
+    """callback for the combobox"""
+    value = combobox.get()
+    print(value)
+
+
 def main_window():
 
     root = tkinter.Tk()
@@ -210,6 +216,8 @@ def main_window():
 
     gates_select_box = ttk.Combobox(root, values=GATE_NAMES)
     gates_select_box.set("Pick any Gate".center(37))
+    gates_select_box.bind("<<ComboboxSelected>>",
+                          lambda e: combobox_select_event(gates_select_box))
     gates_select_box.place(x=110, y=40)
 
     # and_img = load_image("and")
