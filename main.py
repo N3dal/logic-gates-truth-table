@@ -90,12 +90,28 @@ def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"
         root, color, 160), create_horizontal_line(root, color, 200)
 
     table_sizes = {
-        "not": "2x2",
-        "other_gates": "4x3"
+        "not": "2x1",
+        "other_gates": "4x2"
+    }
+
+    lines_size = {
+        "not": (134, 60),
+        "other_gates": (200, 122)
+    }
+
+    lines_x_coordinates = {
+        "not": 143,
+        "other_gates": 110
     }
 
     width, height = map(lambda a: int(
         a)+1, table_sizes[gate_name if gate_name == "not" else "other_gates"].split('x'))
+
+    line_width, line_height = lines_size[gate_name if gate_name ==
+                                         "not" else "other_gates"]
+
+    x_coordinates = lines_x_coordinates[gate_name if gate_name ==
+                                        "not" else "other_gates"]
 
     print(width, height)  # DEBUG.
 
@@ -111,11 +127,13 @@ def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"
 
     # first the horizontal lines.
     for w in range(width):
-        create_horizontal_line(root, color, 200).place(x=110, y=350+30*w)
+        create_horizontal_line(
+            root, color, line_width).place(x=x_coordinates, y=350+30*w)
 
     # second create the vertical lines.
-    for h in range(height):
-        create_vertical_line(root, color, 120).place(x=110+66*h, y=350)
+    for h in range(height + 1):
+        create_vertical_line(root, color, line_height).place(
+            x=x_coordinates+66*h, y=350)
 
     return None
 
@@ -132,11 +150,11 @@ def main_window():
 
     root.configure(bg=WIN_BG)
 
-    and_img = load_image("and")
-    and_gate = create_component(root, "and", and_img)
+    and_img = load_image("not")
+    and_gate = create_component(root, "not", and_img)
     and_gate.place(x=180, y=180)
 
-    create_table(root, gate_name="not")
+    create_table(root, gate_name="xor")
 
     start_app(root)
 
