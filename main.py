@@ -218,6 +218,10 @@ def main_window():
     gates_select_box.set("Pick any Gate".center(37))
     gates_select_box.bind("<<ComboboxSelected>>",
                           lambda e: combobox_select_event(gates_select_box))
+
+    # prevent the users from enter new values.
+    gates_select_box["state"] = "readonly"
+
     gates_select_box.place(x=110, y=40)
 
     # and_img = load_image("and")
