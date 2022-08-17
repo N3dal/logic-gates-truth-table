@@ -209,11 +209,12 @@ def combobox_select_event(root: tkinter.Tk, combobox: ttk.Combobox, images: dict
 def create_gate(root: tkinter.Tk, gate_name: str, images: dict):
     """create both the table and the gate picture and placing them."""
 
+    clear_main_window(root)
+
     if gate_name == "and":
         and_img = images["and"]
         and_gate = create_component(root, "and", and_img)
         and_gate.place(x=180, y=180)
-
         create_table(root, gate_name="and")
 
     elif gate_name == "or":
@@ -252,6 +253,16 @@ def create_gate(root: tkinter.Tk, gate_name: str, images: dict):
         create_table(root, gate_name="not")
 
     return None
+
+
+def clear_main_window(root: tkinter.Tk):
+    """remove all widgets from the main window except the combo-box"""
+
+    widgets = root.winfo_children()
+
+    for widget in widgets:
+        if "combobox" not in widget.__repr__():
+            widget.destroy()
 
 
 def main_window():
