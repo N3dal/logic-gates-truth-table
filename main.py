@@ -70,17 +70,26 @@ def create_component(root: tkinter.Tk, component_name: str, img: tkinter.PhotoIm
 
 
 def create_vertical_line(root: tkinter.Tk, color: str, size: int):
-
+    """"""
     vertical_line = tkinter.Frame(root, bg=color, height=size, width=2)
 
     return vertical_line
 
 
 def create_horizontal_line(root: tkinter.Tk, color: str, size: int):
-
+    """"""
     horizontal_line = tkinter.Frame(root, bg=color, height=2, width=size)
 
     return horizontal_line
+
+
+def create_logic_value_label(root: tkinter.Tk, value: bool, name: str):
+    """create a cell value for the table.
+    for show either '1' or '0'."""
+
+    label = tkinter.Label(root, bd=0, text=str(value), bg=WIN_BG, name=name)
+
+    return label
 
 
 def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"):
