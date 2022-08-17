@@ -209,46 +209,10 @@ def create_gate(root: tkinter.Tk, gate_name: str, images: dict):
 
     clear_main_window(root)
 
-    if gate_name == "and":
-        and_img = images["and"]
-        and_gate = create_component(root, "and", and_img)
-        and_gate.place(x=180, y=180)
-        create_table(root, gate_name="and")
-
-    elif gate_name == "or":
-        or_img = images["or"]
-        or_gate = create_component(root, "or", or_img)
-        or_gate.place(x=180, y=180)
-
-        create_table(root, gate_name="or")
-
-    elif gate_name == "nand":
-        nand_img = images["nand"]
-        nand_gate = create_component(root, "nand", nand_img)
-        nand_gate.place(x=180, y=180)
-
-        create_table(root, gate_name="nand")
-
-    elif gate_name == "nor":
-        nor_img = images["nor"]
-        nor_gate = create_component(root, "nor", nor_img)
-        nor_gate.place(x=180, y=180)
-
-        create_table(root, gate_name="nor")
-
-    elif gate_name == "xor":
-        xor_img = images["xor"]
-        xor_gate = create_component(root, "xor", xor_img)
-        xor_gate.place(x=180, y=180)
-
-        create_table(root, gate_name="xor")
-
-    else:
-        not_img = images["not"]
-        not_gate = create_component(root, "not", not_img)
-        not_gate.place(x=180, y=180)
-
-        create_table(root, gate_name="not")
+    gate_img = images[gate_name]
+    gate = create_component(root, component_name=gate_name, img=gate_img)
+    gate.place(x=180, y=180)
+    create_table(root, "gray50", gate_name)
 
     return None
 
