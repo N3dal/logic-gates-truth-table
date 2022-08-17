@@ -34,6 +34,10 @@ GATE_NAMES = (
     "XOR"
 
 )
+WIN_WIDTH = 400
+WIN_HEIGHT = 500
+WIN_BG = "gray75"
+TITLE = "Logic Gates"
 
 
 def clear():
@@ -55,11 +59,6 @@ def clear():
 
 
 clear()
-
-
-WIN_WIDTH = 400
-WIN_HEIGHT = 500
-WIN_BG = "gray75"
 
 
 def start_app(root: tkinter.Tk):
@@ -201,7 +200,7 @@ def main_window():
 
     root = tkinter.Tk()
 
-    root.title("Logic Gates")
+    root.title(TITLE)
 
     root.resizable(False, False)
 
@@ -209,7 +208,9 @@ def main_window():
 
     root.configure(bg=WIN_BG)
 
-    gates_select_box = ttk.Combobox(root)
+    gates_select_box = ttk.Combobox(root, values=GATE_NAMES)
+    gates_select_box.set("Pick any Gate".center(37))
+    gates_select_box.place(x=110, y=40)
 
     # and_img = load_image("and")
     # and_gate = create_component(root, "and", and_img)
