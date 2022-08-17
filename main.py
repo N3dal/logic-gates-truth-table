@@ -95,6 +95,8 @@ def create_logic_value_label(root: tkinter.Tk, value: bool, name: str):
 def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"):
     """"""
 
+    # todo : add guard conditions.
+
     vl, hl = create_vertical_line(
         root, color, 160), create_horizontal_line(root, color, 200)
 
@@ -132,6 +134,15 @@ def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"
     NOR_GATE = [0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0]
     XOR_GATE = [0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0]
 
+    gates_values = {
+        "not": NOT_GATE,
+        "and": AND_GATE,
+        "or": OR_GATE,
+        "nand": NAND_GATE,
+        "nor": NOR_GATE,
+        "xor": XOR_GATE
+    }
+
     # create the table lines.
 
     # first the horizontal lines.
@@ -143,6 +154,31 @@ def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"
     for h in range(height + 1):
         create_vertical_line(root, color, line_height).place(
             x=x_coordinates+66*h, y=350)
+
+    # create cell values.
+    # x, y = 172, 357; index = 1; for not gate
+
+    cell_values = [create_logic_value_label(
+        root, value, name=f"cell{index}") for index, value in enumerate(gates_values[gate_name])]
+
+    # x for the gates cell values.
+    x_cell_coordinates = 172 if gate_name == "not" else 140
+
+    # align - check.
+
+    align_check = 2 if gate_name == "not" else 3
+
+    # for align the cell values.
+    i, j = 0, 0
+
+    for index, cell_value in enumerate(cell_values, 1):
+        cell_value.place(x=x_cell_coordinates+i, y=357+j)
+
+        i += 65
+
+        if index % align_check == 0:
+            i = 0
+            j += 30
 
     return None
 
@@ -159,8 +195,8 @@ def main_window():
 
     root.configure(bg=WIN_BG)
 
-    and_img = load_image("not")
-    and_gate = create_component(root, "not", and_img)
+    and_img = load_image("and")
+    and_gate = create_component(root, "and", and_img)
     and_gate.place(x=180, y=180)
 
     create_table(root, gate_name="xor")
