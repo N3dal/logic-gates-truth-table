@@ -16,11 +16,25 @@
 from os import system
 from os import name as OS_NAME
 import tkinter
+from tkinter import ttk
 
 
 # TODO: highlight the table row on specific input, for example in the  "and" gate if the user turn on the sw1 and turn on the sw2,
 # TODO: then you must highlight the table row that contain [1, 1, 1] that  means the input1=1, and input2=1, and the output=1,
 # TODO: and hightlight that row in truth table for example with light-green color, and keep other columns with their default color.
+
+
+# defaults vars.
+GATE_NAMES = (
+    "NOT",
+    "AND",
+    "OR",
+    "NAND",
+    "NOR",
+    "XOR"
+
+)
+
 
 def clear():
     """wipe the terminal screen."""
@@ -195,11 +209,13 @@ def main_window():
 
     root.configure(bg=WIN_BG)
 
-    and_img = load_image("and")
-    and_gate = create_component(root, "and", and_img)
-    and_gate.place(x=180, y=180)
+    gates_select_box = ttk.Combobox(root)
 
-    create_table(root, gate_name="xor")
+    # and_img = load_image("and")
+    # and_gate = create_component(root, "and", and_img)
+    # and_gate.place(x=180, y=180)
+
+    # create_table(root, gate_name="xor")
 
     start_app(root)
 
