@@ -137,8 +137,6 @@ def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"
     x_coordinates = lines_x_coordinates[gate_name if gate_name ==
                                         "not" else "other_gates"]
 
-    print(width, height)  # DEBUG.
-
     # create logic gates tables.
     NOT_GATE = [1, 0, 0, 1]
     AND_GATE = [0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1]
