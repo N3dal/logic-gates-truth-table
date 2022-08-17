@@ -67,11 +67,11 @@ def start_app(root: tkinter.Tk):
     return None
 
 
-def load_image(img_name: str):
+def load_image(root: tkinter.Tk, img_name: str):
     """"""
 
-    return tkinter.PhotoImage(
-        file=f"./assets/{img_name}.png", name=img_name)
+    return tkinter.PhotoImage(master=root,
+                              file=f"./assets/{img_name}.png", name=f"image_{img_name}")
 
 
 def create_component(root: tkinter.Tk, component_name: str, img: tkinter.PhotoImage):
@@ -196,10 +196,62 @@ def create_table(root: tkinter.Tk, color: str = "black",  gate_name: str = "not"
     return None
 
 
-def combobox_select_event(combobox: ttk.Combobox):
+def combobox_select_event(root: tkinter.Tk, combobox: ttk.Combobox, images: dict):
     """callback for the combobox"""
+
     value = combobox.get()
-    print(value)
+
+    create_gate(root, value.lower(), images)
+
+    return None
+
+
+def create_gate(root: tkinter.Tk, gate_name: str, images: dict):
+    """create both the table and the gate picture and placing them."""
+
+    if gate_name == "and":
+        and_img = images["and"]
+        and_gate = create_component(root, "and", and_img)
+        and_gate.place(x=180, y=180)
+
+        create_table(root, gate_name="and")
+
+    elif gate_name == "or":
+        or_img = images["or"]
+        or_gate = create_component(root, "or", or_img)
+        or_gate.place(x=180, y=180)
+
+        create_table(root, gate_name="or")
+
+    elif gate_name == "nand":
+        nand_img = images["nand"]
+        nand_gate = create_component(root, "nand", nand_img)
+        nand_gate.place(x=180, y=180)
+
+        create_table(root, gate_name="nand")
+
+    elif gate_name == "nor":
+        nor_img = images["nor"]
+        nor_gate = create_component(root, "nor", nor_img)
+        nor_gate.place(x=180, y=180)
+
+        create_table(root, gate_name="nor")
+
+    elif gate_name == "xor":
+        xor_img = images["xor"]
+        xor_gate = create_component(root, "xor", xor_img)
+        xor_gate.place(x=180, y=180)
+
+        create_table(root, gate_name="xor")
+
+    else:
+        not_img = images["not"]
+        not_gate = create_component(root, "not", not_img)
+        not_gate.place(x=180, y=180)
+
+        create_table(root, gate_name="not")
+
+    return None
 
 
 def main_window():
@@ -214,21 +266,19 @@ def main_window():
 
     root.configure(bg=WIN_BG)
 
+    # load all needed images for gates.
+    gates_images = {gate.lower(): load_image(root, gate.lower())
+                    for gate in GATE_NAMES}
+
     gates_select_box = ttk.Combobox(root, values=GATE_NAMES)
     gates_select_box.set("Pick any Gate".center(37))
     gates_select_box.bind("<<ComboboxSelected>>",
-                          lambda e: combobox_select_event(gates_select_box))
+                          lambda e: combobox_select_event(root, gates_select_box, images=gates_images))
 
     # prevent the users from enter new values.
     gates_select_box["state"] = "readonly"
 
     gates_select_box.place(x=110, y=40)
-
-    # and_img = load_image("and")
-    # and_gate = create_component(root, "and", and_img)
-    # and_gate.place(x=180, y=180)
-
-    # create_table(root, gate_name="xor")
 
     start_app(root)
 
